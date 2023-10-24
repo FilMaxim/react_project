@@ -19,4 +19,5 @@ export interface Persone {
 
 export interface StarWarsCharactersState {
   characters: Array<Persone>;
+  isLoading: boolean;
 }
