@@ -29,15 +29,16 @@ export class Search extends React.Component<SearchProps, SearchState> {
 
   render() {
     return (
-      <>
+      <div className="search-wrap">
         <input
+          className="search"
           type="text"
           placeholder="Search..."
           value={this.state.searchValue}
           onChange={this.handleChange}
         />
         <button onClick={this.handleClick}>Поиск</button>
-      </>
+      </div>
     );
   }
 }

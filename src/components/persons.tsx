@@ -54,17 +54,25 @@ export class StarWarsCharacters extends Component<
     return (
       <div>
         <h1>Персонажи Звездных Войн</h1>
-        <div>{this.props.value}</div>
         {isLoading ? (
-          <div>Загрузка...</div>
+          <div>
+            <div className="loader"></div>
+          </div>
         ) : (
           <div>
             {characters.length === 0 ? (
-              <div>Человек не найден</div>
+              <h2>Ничего не найдено 😟 </h2>
             ) : (
               <ul>
                 {characters.map((character) => (
-                  <li key={character.name}>{character.name}</li>
+                  <li className="item" key={character.name}>
+                    <div>Name: {character.name}</div>
+                    <div>Birth year: {character.birth_year} </div>
+                    <div>Gender: {character.gender} </div>
+                    <div>Mass: {character.mass} kg</div>
+                    <div>Height: {character.height} m</div>
+                    <div>Color: {character.skin_color} </div>
+                  </li>
                 ))}
               </ul>
             )}

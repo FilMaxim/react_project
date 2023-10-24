@@ -6,6 +6,10 @@ export class ErrorButton extends React.Component {
   };
 
   render() {
-    return <button onClick={this.handleClick}>Генерировать ошибку</button>;
+    return (
+      <button className="btn-error" onClick={this.handleClick}>
+        Выдать ошибку
+      </button>
+    );
   }
 }
