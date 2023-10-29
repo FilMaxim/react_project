@@ -5,7 +5,7 @@ import { ErrorButton } from './components/errorButton';
 
 export class App extends Component {
   state = {
-    value: 'r2',
+    value: '',
   };
 
   handleChange = (value: string) => {

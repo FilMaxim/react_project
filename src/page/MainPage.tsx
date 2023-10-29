@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import { Search } from '../components/search';
 import { StarWarsCharacters } from '../components/persons';
-
-type Props = {
-  callback: (value: string) => void;
-  value: string;
-};
-
-type State = {
-  value: string;
-};
+import { Props, State } from '../types';
 
 export class MainPage extends Component<Props, State> {
   constructor(props: Props) {

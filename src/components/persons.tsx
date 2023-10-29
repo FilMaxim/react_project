@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { StarWarsCharactersState } from '../types';
-
-interface StarWarsCharactersProps {
-  value: string;
-}
+import { StarWarsCharactersProps, StarWarsCharactersState } from '../types';
 
 export class StarWarsCharacters extends Component<
   StarWarsCharactersProps,

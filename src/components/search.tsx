@@ -1,12 +1,5 @@
 import React from 'react';
-
-interface SearchProps {
-  onClick: (value: string) => void;
-}
-
-interface SearchState {
-  searchValue: string;
-}
+import { SearchProps, SearchState } from '../types';
 
 export class Search extends React.Component<SearchProps, SearchState> {
   constructor(props: SearchProps) {

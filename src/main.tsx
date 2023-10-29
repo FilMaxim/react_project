@@ -9,8 +9,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <App />
   </ErrorBoundary>
 );
-// ReactDOM.createRoot(document.getElementById('root')!).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
