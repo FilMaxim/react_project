@@ -24,7 +24,6 @@ export class StarWarsCharacters extends Component<
   }
 
   fetchData = async (value: string) => {
-    console.log(value);
     this.setState({ isLoading: true });
     const date = localStorage.getItem('date');
     const searchPeople = date ? date : value.trim();
@@ -33,9 +32,7 @@ export class StarWarsCharacters extends Component<
       const response = searchPeople
         ? await fetch(`https://swapi.dev/api/people/?search=${searchPeople}`)
         : await fetch(`https://swapi.dev/api/people/`);
-      console.log(response);
       const data = await response.json();
-      console.log(data);
       this.setState({ characters: data.results });
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error);
