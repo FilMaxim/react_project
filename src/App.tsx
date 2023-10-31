@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import './App.css';
 import { MainPage } from './page/MainPage';
-import { ErrorButton } from './components/errorButton';
+import { ErrorButton } from './components/error-button';
 
 export class App extends Component {
   state = {
