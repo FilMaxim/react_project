@@ -1,30 +1,22 @@
-import React, { Component } from 'react';
-import { StarWarsCharactersProps, StarWarsCharactersState } from '../types';
+import React, { useState, useEffect } from 'react';
+import { Persone, StarWarsCharactersProps } from '../types';
 
-export class StarWarsCharacters extends Component<
-  StarWarsCharactersProps,
-  StarWarsCharactersState
-> {
-  constructor(props: StarWarsCharactersProps) {
-    super(props);
-    this.state = {
-      characters: [],
-      isLoading: true,
-    };
-  }
+export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
+  const [characters, setCharacters] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  componentDidMount() {
-    this.fetchData('');
-  }
+  useEffect(() => {
+    fetchData('');
+  }, []);
 
-  componentDidUpdate(prevProps: StarWarsCharactersProps) {
-    if (prevProps.value !== this.props.value) {
-      this.fetchData(this.props.value);
+  useEffect(() => {
+    if (props.value !== '') {
+      fetchData(props.value);
     }
-  }
+  }, [props.value]);
 
-  fetchData = async (value: string) => {
-    this.setState({ isLoading: true });
+  const fetchData = async (value: string) => {
+    setIsLoading(true);
     const date = localStorage.getItem('date');
     const searchPeople = date ? date : value.trim();
 
@@ -33,45 +25,41 @@ export class StarWarsCharacters extends Component<
         ? await fetch(`https://swapi.dev/api/people/?search=${searchPeople}`)
         : await fetch(`https://swapi.dev/api/people/`);
       const data = await response.json();
-      this.setState({ characters: data.results });
+      setCharacters(data.results);
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  render() {
-    const { characters, isLoading } = this.state;
-
-    return (
-      <div>
-        <h1>Персонажи Звездных Войн</h1>
-        {isLoading ? (
-          <div>
-            <div className="loader"></div>
-          </div>
-        ) : (
-          <div>
-            {characters.length === 0 ? (
-              <h2>Ничего не найдено 😟 </h2>
-            ) : (
-              <ul>
-                {characters.map((character) => (
-                  <li className="item" key={character.name}>
-                    <div>Name: {character.name}</div>
-                    <div>Birth year: {character.birth_year} </div>
-                    <div>Gender: {character.gender} </div>
-                    <div>Mass: {character.mass} kg</div>
-                    <div>Height: {character.height} m</div>
-                    <div>Color: {character.skin_color} </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h1>Персонажи Звездных Войн</h1>
+      {isLoading ? (
+        <div>
+          <div className="loader"></div>
+        </div>
+      ) : (
+        <div>
+          {characters.length === 0 ? (
+            <h2>Ничего не найдено 😟 </h2>
+          ) : (
+            <ul>
+              {characters.map((character: Persone) => (
+                <li className="item" key={character.name}>
+                  <div>Name: {character.name}</div>
+                  <div>Birth year: {character.birth_year} </div>
+                  <div>Gender: {character.gender} </div>
+                  <div>Mass: {character.mass} kg</div>
+                  <div>Height: {character.height} m</div>
+                  <div>Color: {character.skin_color} </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};

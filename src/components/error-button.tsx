@@ -1,15 +1,13 @@
 import React from 'react';
 
-export class ErrorButton extends React.Component {
-  handleClick = () => {
+export function ErrorButton() {
+  const handleClick = () => {
     throw new Error('Пример ошибки');
   };
 
-  render() {
-    return (
-      <button className="btn-error" onClick={this.handleClick}>
-        Выдать ошибку
-      </button>
-    );
-  }
+  return (
+    <button className="btn-error" onClick={handleClick}>
+      Выдать ошибку
+    </button>
+  );
 }
