@@ -1,28 +1,18 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Search } from '../components/search';
 import { StarWarsCharacters } from '../components/persons';
-import { Props, State } from '../types';
 
-export class MainPage extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      value: '',
-    };
-  }
+export const MainPage = () => {
+  const [value, setValue] = useState('');
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    this.setState({ value });
-    this.props.callback(value);
+  const handleValueChange = (value: string) => {
+    setValue(value);
   };
 
-  render() {
-    return (
-      <div>
-        <Search onClick={this.props.callback} />
-        <StarWarsCharacters value={this.props.value} />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Search onClick={handleValueChange} />
+      <StarWarsCharacters value={value} />
+    </div>
+  );
+};

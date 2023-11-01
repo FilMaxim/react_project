@@ -11,12 +11,12 @@ export const Search: React.FC<SearchProps> = (props) => {
     localStorage.setItem('date', searchValue);
   }, [searchValue]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearchValue(value);
   };
 
-  const handleClick = () => {
+  const handleValueClick = () => {
     props.onClick(searchValue);
   };
 
@@ -27,9 +27,9 @@ export const Search: React.FC<SearchProps> = (props) => {
         type="text"
         placeholder="Поиск..."
         value={searchValue}
-        onChange={handleChange}
+        onChange={handleValueChange}
       />
-      <button onClick={handleClick}>Поиск</button>
+      <button onClick={handleValueClick}>Поиск</button>
     </div>
   );
 };
