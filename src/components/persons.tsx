@@ -1,13 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Persone, StarWarsCharactersProps } from '../types';
+import { Pagination } from './pagination';
+import { LimitSelect } from './limit-select';
 
 export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
+  const limitAPI = 10;
   const [characters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [pageCurrent, setPageCurrent] = useState(1);
+  const [count, setCount] = useState(1);
+  const [limit, setLimit] = useState(limitAPI);
 
   useEffect(() => {
     fetchData('');
-  }, []);
+  }, [pageCurrent, limit]);
 
   useEffect(() => {
     if (props.value !== '') {
@@ -20,17 +27,42 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
     const date = localStorage.getItem('date');
     const searchPeople = date ? date : value.trim();
 
+    const calculatedPage = Math.ceil((pageCurrent * limit) / limitAPI);
+    // https://swapi.py4e.com/
     try {
       const response = searchPeople
         ? await fetch(`https://swapi.dev/api/people/?search=${searchPeople}`)
-        : await fetch(`https://swapi.dev/api/people/`);
+        : await fetch(`https://swapi.dev/api/people/?page=${calculatedPage}`);
       const data = await response.json();
-      setCharacters(data.results);
+      console.log(data);
+      const startIndex = ((pageCurrent - 1) * limit) % limitAPI;
+      const endIndex = startIndex + limit;
+      const slicedResults = data.results.slice(startIndex, endIndex);
+      setCharacters(slicedResults);
+      setCount(Math.ceil(data.count / limit));
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handlePageClickPrev = () => {
+    if (pageCurrent !== 1) setPageCurrent(pageCurrent - 1);
+  };
+
+  const handlePageClickNext = () => {
+    if (pageCurrent !== count) setPageCurrent(pageCurrent + 1);
+  };
+  const handlePageClickOne = () => {
+    setPageCurrent(1);
+  };
+  const handlePageClickLast = () => {
+    setPageCurrent(count);
+  };
+  const handleChangeLimit = (value: number) => {
+    setLimit(value);
+    setPageCurrent(1);
   };
 
   return (
@@ -58,6 +90,15 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
               ))}
             </ul>
           )}
+          <LimitSelect limit={limit} onChange={handleChangeLimit}></LimitSelect>
+          <Pagination
+            pageCurrent={pageCurrent}
+            count={count}
+            handlePageClickPrev={handlePageClickPrev}
+            handlePageClickNext={handlePageClickNext}
+            handlePageClickOne={handlePageClickOne}
+            handlePageClickLast={handlePageClickLast}
+          />
         </div>
       )}
     </div>

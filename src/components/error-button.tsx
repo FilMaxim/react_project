@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function ErrorButton() {
+export const ErrorButton = () => {
   const handleClick = () => {
     throw new Error('Пример ошибки');
   };
@@ -10,4 +10,4 @@ export function ErrorButton() {
       Выдать ошибку
     </button>
   );
-}
+};

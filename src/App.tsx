@@ -1,12 +1,13 @@
 import './App.css';
-import { MainPage } from './page/MainPage';
-import { ErrorButton } from './components/error-button';
+import { MainPage } from './page/Main-page';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 export const App = () => {
   return (
-    <div>
-      <MainPage />
-      <ErrorButton />
-    </div>
+    <Routes>
+      <Route path="/" element={<MainPage />}></Route>
+      <Route path="*" element={<div>Страница не найдена</div>}></Route>
+    </Routes>
   );
 };

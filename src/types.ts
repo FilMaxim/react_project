@@ -42,3 +42,8 @@ export type Props = {
 export type State = {
   value: string;
 };
+
+export interface CardLimitSelectProps {
+  onChange: (value: number) => void;
+  limit: number;
+}
