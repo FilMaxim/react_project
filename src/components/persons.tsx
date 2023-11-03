@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Persone, StarWarsCharactersProps } from '../types';
 import { Pagination } from './pagination';
 import { LimitSelect } from './limit-select';
+import { Link, useNavigate } from 'react-router-dom';
+import { getId } from '../utils/get-id';
 
 export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
   const limitAPI = 10;
@@ -11,6 +13,7 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
   const [pageCurrent, setPageCurrent] = useState(1);
   const [count, setCount] = useState(1);
   const [limit, setLimit] = useState(limitAPI);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData('');
@@ -32,13 +35,13 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
     try {
       const response = searchPeople
         ? await fetch(`https://swapi.dev/api/people/?search=${searchPeople}`)
-        : await fetch(`https://swapi.dev/api/people/?page=${calculatedPage}`);
+        : await fetch(`https://swapi.py4e.com/api/people/?page=${calculatedPage}`);
       const data = await response.json();
-      console.log(data);
       const startIndex = ((pageCurrent - 1) * limit) % limitAPI;
       const endIndex = startIndex + limit;
       const slicedResults = data.results.slice(startIndex, endIndex);
       setCharacters(slicedResults);
+      searchPeople ? navigate(`?search=${searchPeople}`) : navigate(`?page=${pageCurrent}`);
       setCount(Math.ceil(data.count / limit));
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error);
@@ -47,19 +50,6 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
     }
   };
 
-  const handlePageClickPrev = () => {
-    if (pageCurrent !== 1) setPageCurrent(pageCurrent - 1);
-  };
-
-  const handlePageClickNext = () => {
-    if (pageCurrent !== count) setPageCurrent(pageCurrent + 1);
-  };
-  const handlePageClickOne = () => {
-    setPageCurrent(1);
-  };
-  const handlePageClickLast = () => {
-    setPageCurrent(count);
-  };
   const handleChangeLimit = (value: number) => {
     setLimit(value);
     setPageCurrent(1);
@@ -79,26 +69,21 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
           ) : (
             <ul>
               {characters.map((character: Persone) => (
-                <li className="item" key={character.name}>
-                  <div>Name: {character.name}</div>
-                  <div>Birth year: {character.birth_year} </div>
-                  <div>Gender: {character.gender} </div>
-                  <div>Mass: {character.mass} kg</div>
-                  <div>Height: {character.height} m</div>
-                  <div>Color: {character.skin_color} </div>
+                <li className="item" key={character.url}>
+                  <Link to={`/details/${getId(character.url)}`}>
+                    <div>Name: {character.name}</div>
+                    <div>Birth year: {character.birth_year} </div>
+                    <div>Gender: {character.gender} </div>
+                    <div>Mass: {character.mass} kg</div>
+                    <div>Height: {character.height} m</div>
+                    <div>Color: {character.skin_color} </div>
+                  </Link>
                 </li>
               ))}
             </ul>
           )}
           <LimitSelect limit={limit} onChange={handleChangeLimit}></LimitSelect>
-          <Pagination
-            pageCurrent={pageCurrent}
-            count={count}
-            handlePageClickPrev={handlePageClickPrev}
-            handlePageClickNext={handlePageClickNext}
-            handlePageClickOne={handlePageClickOne}
-            handlePageClickLast={handlePageClickLast}
-          />
+          <Pagination pageCurrent={pageCurrent} count={count} setPageCurrent={setPageCurrent} />
         </div>
       )}
     </div>

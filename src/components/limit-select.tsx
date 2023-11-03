@@ -11,7 +11,7 @@ export const LimitSelect: React.FC<CardLimitSelectProps> = ({ onChange, limit })
 
   return (
     <>
-      <p>Выберите количество карточек на странице:</p>
+      <p>Количество карточек:</p>
       <select value={limit} onChange={handleChange}>
         {options.map((option) => (
           <option key={option} value={option}>

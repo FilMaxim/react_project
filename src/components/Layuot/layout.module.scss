@@ -1,0 +1,14 @@
+.layout {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left {
+  width: 70%;
+  border: 2px solid black;
+}
+
+.right {
+  border: 2px solid black;
+  width: 40%;
+}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import styles from './main.module.scss';
 import { Search } from '../components/search';
 import { StarWarsCharacters } from '../components/persons';
-import { ErrorButton } from '../components/error-button';
 
-export const MainPage = () => {
+export const MainPage: React.FC = () => {
   const [value, setValue] = useState('');
 
   const handleValueChange = (value: string) => {
@@ -11,10 +11,11 @@ export const MainPage = () => {
   };
 
   return (
-    <div>
-      <Search onClick={handleValueChange} />
-      <StarWarsCharacters value={value} />
-      <ErrorButton />
-    </div>
+    <>
+      <div className={styles.main}>
+        <Search onClick={handleValueChange} />
+        <StarWarsCharacters value={value} />
+      </div>
+    </>
   );
 };

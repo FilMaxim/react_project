@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SearchProps } from '../types';
+import { ErrorButton } from './Button/error-button';
 
 export const Search: React.FC<SearchProps> = (props) => {
   const [searchValue, setSearchValue] = useState<string>(() => {
@@ -30,6 +31,7 @@ export const Search: React.FC<SearchProps> = (props) => {
         onChange={handleValueChange}
       />
       <button onClick={handleValueClick}>Поиск</button>
+      <ErrorButton />
     </div>
   );
 };

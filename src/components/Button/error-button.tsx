@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './button.module.scss';
 
 export const ErrorButton = () => {
   const handleClick = () => {
@@ -6,7 +7,7 @@ export const ErrorButton = () => {
   };
 
   return (
-    <button className="btn-error" onClick={handleClick}>
+    <button className={styles.btnerror} onClick={handleClick}>
       Выдать ошибку
     </button>
   );

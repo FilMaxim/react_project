@@ -1,13 +1,20 @@
 import './App.css';
-import { MainPage } from './page/Main-page';
-import React from 'react';
+import { DescriptionPerson } from './components/description-person';
+import { Layout } from './components/Layuot/layout';
+import { MainPage } from './pages/Main';
 import { Route, Routes } from 'react-router-dom';
 
-export const App = () => {
+export const App: React.FC = () => {
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />}></Route>
-      <Route path="*" element={<div>Страница не найдена</div>}></Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/details/" element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route path=":id" element={<DescriptionPerson />} />
+        </Route>
+        <Route path="*" element={<div>Страница не найдена</div>} />
+      </Routes>
+    </>
   );
 };

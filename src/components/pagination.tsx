@@ -3,20 +3,22 @@ import React from 'react';
 interface PaginationProps {
   pageCurrent: number;
   count: number;
-  handlePageClickPrev: () => void;
-  handlePageClickNext: () => void;
-  handlePageClickOne: () => void;
-  handlePageClickLast: () => void;
+  setPageCurrent: (value: number) => void;
 }
 
-export const Pagination = ({
-  pageCurrent,
-  count,
-  handlePageClickPrev,
-  handlePageClickNext,
-  handlePageClickOne,
-  handlePageClickLast,
-}: PaginationProps) => {
+export const Pagination = ({ pageCurrent, count, setPageCurrent }: PaginationProps) => {
+  const handlePageClickPrev = () => {
+    if (pageCurrent !== 1) setPageCurrent(pageCurrent - 1);
+  };
+  const handlePageClickNext = () => {
+    if (pageCurrent !== count) setPageCurrent(pageCurrent + 1);
+  };
+  const handlePageClickOne = () => {
+    setPageCurrent(1);
+  };
+  const handlePageClickLast = () => {
+    setPageCurrent(count);
+  };
   return (
     <div className="pagination">
       <button onClick={handlePageClickOne}>&lt;&lt;</button>
