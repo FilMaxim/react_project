@@ -75,8 +75,7 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
                     <div>Birth year: {character.birth_year} </div>
                     <div>Gender: {character.gender} </div>
                     <div>Mass: {character.mass} kg</div>
-                    <div>Height: {character.height} m</div>
-                    <div>Color: {character.skin_color} </div>
+                    <div>Height: {character.height} mm</div>
                   </Link>
                 </li>
               ))}

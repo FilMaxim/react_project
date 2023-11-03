@@ -1,5 +1,5 @@
 import './App.css';
-import { DescriptionPerson } from './components/description-person';
+import { DescriptionPerson } from './components/Descripton/description';
 import { Layout } from './components/Layuot/layout';
 import { MainPage } from './pages/Main';
 import { Route, Routes } from 'react-router-dom';

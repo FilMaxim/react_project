@@ -1,0 +1,18 @@
+.description {
+  padding: 10px 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  font-size: 20px;
+
+  p {
+    margin: 0.1em;
+    text-align: left;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: list-item;
+  }
+}

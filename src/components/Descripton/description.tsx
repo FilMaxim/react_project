@@ -1,9 +1,9 @@
+import styles from './description.module.scss';
 import { useParams } from 'react-router-dom';
-import { CloseButton } from './Button/close-button';
+import { CloseButton } from '../Button/close-button';
 import { useEffect, useState } from 'react';
-
-import { getNameOfUrl } from '../utils/get-name-of-url';
-import { Persone } from '../types';
+import { getNameOfUrl } from '../../utils/get-name-of-url';
+import { Persone } from '../../types';
 
 export const DescriptionPerson: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,7 +19,6 @@ export const DescriptionPerson: React.FC = () => {
 
   const fetchData = async (id: string) => {
     setIsLoading(true);
-    // https://swapi.py4e.com/
     try {
       const response = await fetch(`https://swapi.py4e.com/api/people/${id}`);
       const data = await response.json();
@@ -36,35 +35,33 @@ export const DescriptionPerson: React.FC = () => {
   return (
     <>
       <CloseButton />
-      <h2> Детали персонажа: {id}</h2>
+      <h2> Детали персонажа: {characters ? characters.name : id}</h2>
       {isLoading ? (
         <div>
           <div className="loader"></div>
         </div>
       ) : (
-        <div>
+        <div className={styles.description}>
           {!characters ? (
             <h2>Ничего не найдено 😟 </h2>
           ) : (
-            <div className="item" key={characters.url}>
-              <div>Name: {characters.name}</div>
-              <div>Birth year: {characters.birth_year} </div>
-              <div>Name: {characters.name}</div>
-              <div>Gender: {characters.gender} </div>
-              <div>Mass: {characters.mass} kg</div>
-              <div>Height: {characters.height} m</div>
-              <div>Skin Color: {characters.skin_color} </div>
-              <div>Hair Color: {characters.hair_color} </div>
-              <div>Eye Color: {characters.eye_color} </div>
+            <>
+              <p>Birth year: {characters.birth_year} </p>
+              <p>Gender: {characters.gender} </p>
+              <p>Mass: {characters.mass} kg</p>
+              <p>Height: {characters.height} mm</p>
+              <p>Skin Color: {characters.skin_color} </p>
+              <p>Hair Color: {characters.hair_color} </p>
+              <p>Eye Color: {characters.eye_color} </p>
               {filmsArr.length !== 0 && (
-                <div>
+                <p>
                   Films:
                   <ul>
                     {filmsArr.map((film: string) => (
                       <li key={film}>{film}</li>
                     ))}
                   </ul>
-                </div>
+                </p>
               )}
               {starships.length !== 0 && (
                 <div>
@@ -76,7 +73,7 @@ export const DescriptionPerson: React.FC = () => {
                   </ul>
                 </div>
               )}
-            </div>
+            </>
           )}
         </div>
       )}
