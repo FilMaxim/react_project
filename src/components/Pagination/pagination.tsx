@@ -1,4 +1,4 @@
-import React from 'react';
+import styles from './pagination.module.scss';
 
 interface PaginationProps {
   pageCurrent: number;
@@ -20,12 +20,22 @@ export const Pagination = ({ pageCurrent, count, setPageCurrent }: PaginationPro
     setPageCurrent(count);
   };
   return (
-    <div className="pagination">
-      <button onClick={handlePageClickOne}>&lt;&lt;</button>
-      <button onClick={handlePageClickPrev}>&lt;</button>
-      <span>{pageCurrent}</span>/<span>{count}</span>
-      <button onClick={handlePageClickNext}>&gt;</button>
-      <button onClick={handlePageClickLast}>&gt;&gt;</button>
+    <div className={styles.pagination}>
+      <div className={styles.btn_page} onClick={handlePageClickOne}>
+        &lt;&lt;
+      </div>
+      <div className={styles.btn_page} onClick={handlePageClickPrev}>
+        &lt;
+      </div>
+      <span className={styles.page_currrent}>
+        {pageCurrent}/{count}
+      </span>
+      <div className={styles.btn_page} onClick={handlePageClickNext}>
+        &gt;
+      </div>
+      <div className={styles.btn_page} onClick={handlePageClickLast}>
+        &gt;&gt;
+      </div>
     </div>
   );
 };

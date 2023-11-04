@@ -1,5 +1,6 @@
 import React from 'react';
-import { CardLimitSelectProps } from '../types';
+import styles from './limit.module.scss';
+import { CardLimitSelectProps } from '../../types';
 
 export const LimitSelect: React.FC<CardLimitSelectProps> = ({ onChange, limit }) => {
   const options = [1, 2, 5, 10];
@@ -10,15 +11,15 @@ export const LimitSelect: React.FC<CardLimitSelectProps> = ({ onChange, limit })
   };
 
   return (
-    <>
-      <p>Количество карточек:</p>
-      <select value={limit} onChange={handleChange}>
+    <div className={styles.select_wrap}>
+      <p className={styles.title_limit}>Количество карточек:</p>
+      <select value={limit} className={styles.select} onChange={handleChange}>
         {options.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };

@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Persone, StarWarsCharactersProps } from '../types';
-import { Pagination } from './pagination';
-import { LimitSelect } from './limit-select';
+import { Pagination } from './Pagination/pagination';
+import { LimitSelect } from './Limit-select/limit-select';
 import { Link, useNavigate } from 'react-router-dom';
 import { getId } from '../utils/get-id';
+import { Loader } from './Loader/loader';
 
 export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
   const limitAPI = 10;
@@ -59,9 +60,7 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
     <div>
       <h1>Персонажи Звездных Войн</h1>
       {isLoading ? (
-        <div>
-          <div className="loader"></div>
-        </div>
+        <Loader />
       ) : (
         <div>
           {characters.length === 0 ? (

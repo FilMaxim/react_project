@@ -4,6 +4,7 @@ import { CloseButton } from '../Button/close-button';
 import { useEffect, useState } from 'react';
 import { getNameOfUrl } from '../../utils/get-name-of-url';
 import { Persone } from '../../types';
+import { Loader } from '../Loader/loader';
 
 export const DescriptionPerson: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,11 +36,9 @@ export const DescriptionPerson: React.FC = () => {
   return (
     <>
       <CloseButton />
-      <h2> Детали персонажа: {characters ? characters.name : id}</h2>
+      <h3> Детали персонажа: {characters ? characters.name : id}</h3>
       {isLoading ? (
-        <div>
-          <div className="loader"></div>
-        </div>
+        <Loader />
       ) : (
         <div className={styles.description}>
           {!characters ? (
@@ -54,21 +53,27 @@ export const DescriptionPerson: React.FC = () => {
               <p>Hair Color: {characters.hair_color} </p>
               <p>Eye Color: {characters.eye_color} </p>
               {filmsArr.length !== 0 && (
-                <p>
-                  Films:
-                  <ul>
+                <div>
+                  <h3>Films:</h3>
+
+                  <ul className={styles.list}>
                     {filmsArr.map((film: string) => (
-                      <li key={film}>{film}</li>
+                      <li key={film} className={styles.item}>
+                        {film}
+                      </li>
                     ))}
                   </ul>
-                </p>
+                </div>
               )}
               {starships.length !== 0 && (
                 <div>
-                  Starships:
-                  <ul>
+                  <h3>Starships:</h3>
+
+                  <ul className={styles.list}>
                     {starships.map((starship: string) => (
-                      <li key={starship}>{starship}</li>
+                      <li key={starship} className={styles.item}>
+                        {starship}
+                      </li>
                     ))}
                   </ul>
                 </div>

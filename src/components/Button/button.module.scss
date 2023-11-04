@@ -6,103 +6,101 @@
   margin: 20px;
   position: relative;
   display: flex;
-  justify-content: center;
-  height: 112px;
+  justify-content: end;
+  height: 50px;
 }
 
 .clbtn1 div {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   position: absolute;
-  background-image: radial-gradient(#FFF, #BFE2FF);
   border-radius: 50%;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-  border: 6px solid #337AB7;
   cursor: pointer;
 }
 
-.clbtn1 div>span {
-  background-color: #337AB7;
+.clbtn1 div > span {
+  background-color: #337ab7;
   display: block;
-  height: 12px;
-  border-radius: 6px;
+  height: 6px;
+  border-radius: 3px;
   position: relative;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
   position: absolute;
   top: 50%;
-  margin-top: -6px;
-  left: 18px;
-  width: 64px;
+  margin-top: -3px;
+  left: 9px;
+  width: 32px;
 }
 
-.clbtn1 div>span span {
+.clbtn1 div > span span {
   display: block;
   background-color: #215b8c;
-  width: 12px;
-  height: 12px;
-  border-radius: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
   position: absolute;
   left: 0;
   top: 0;
 }
 
-.clbtn1 div>span.left {
+.clbtn1 div > span.left {
   transform: rotate(45deg);
   transform-origin: center;
 }
 
-.clbtn1 div>span.left .circle_left {
+.clbtn1 div > span.left .circle_left {
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
   margin-left: 0;
 }
 
-.clbtn1 div>span.left .circle_right {
+.clbtn1 div > span.left .circle_right {
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-  margin-left: 52px;
+  margin-left: 26px;
 }
 
-.clbtn1 div>span.right {
+.clbtn1 div > span.right {
   transform: rotate(-45deg);
   transform-origin: center;
 }
 
-.clbtn1 div>span.right .circle_left {
+.clbtn1 div > span.right .circle_left {
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
   margin-left: 0;
 }
 
-.clbtn1 div>span.right .circle_right {
+.clbtn1 div > span.right .circle_right {
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-  margin-left: 52px;
+  margin-left: 26px;
 }
 
-.clbtn1 div:hover>span {
+.clbtn1 div:hover > span {
   background-color: #215b8c;
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.clbtn1 div:hover>span span {
+.clbtn1 div:hover > span span {
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-  background-color: #337AB7;
+  background-color: #337ab7;
 }
 
-.clbtn1 div:hover>span.left .circle_left {
+.clbtn1 div:hover > span.left .circle_left {
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-  margin-left: 52px;
+  margin-left: 26px;
 }
 
-.clbtn1 div:hover>span.left .circle_right {
+.clbtn1 div:hover > span.left .circle_right {
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
   margin-left: 0;
 }
 
-.clbtn1 div:hover>span.right .circle_left {
+.clbtn1 div:hover > span.right .circle_left {
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-  margin-left: 52px;
+  margin-left: 26px;
 }
 
-.clbtn1 div:hover>span.right .circle_right {
+.clbtn1 div:hover > span.right .circle_right {
   transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
   margin-left: 0;
 }
