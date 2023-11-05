@@ -22,14 +22,6 @@ export interface StarWarsCharactersState {
   isLoading: boolean;
 }
 
-export interface StarWarsCharactersProps {
-  value: string;
-}
-
-export interface SearchProps {
-  onClick: (value: string) => void;
-}
-
 export interface SearchState {
   searchValue: string;
 }
@@ -42,8 +34,3 @@ export type Props = {
 export type State = {
   value: string;
 };
-
-export interface CardLimitSelectProps {
-  onChange: (value: number) => void;
-  limit: number;
-}

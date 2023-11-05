@@ -1,16 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { SearchProps } from '../types';
+import React, { useEffect, useState } from 'react';
 import { ErrorButton } from './Button/error-button';
+import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 
-export const Search: React.FC<SearchProps> = (props) => {
-  const [searchValue, setSearchValue] = useState<string>(() => {
-    const date = localStorage.getItem('date');
-    return date ? date : '';
-  });
+export const Search: React.FC = () => {
+  const navigate = useNavigate();
+  const valueLocalStorage = localStorage.getItem('inputValue');
+  const [searchParams] = useSearchParams();
+  const inputValue = searchParams.get('inputValue')
+    ? String(searchParams.get('inputValue'))
+    : valueLocalStorage
+    ? valueLocalStorage
+    : '';
+  const [searchValue, setSearchValue] = useState(inputValue);
 
   useEffect(() => {
-    localStorage.setItem('date', searchValue);
-  }, [searchValue]);
+    if (!searchParams.get('search') && valueLocalStorage) {
+      const urlParams = new URLSearchParams();
+      urlParams.set('search', valueLocalStorage);
+      navigate(`/?${urlParams.toString()}`);
+    }
+  }, []);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -18,7 +28,16 @@ export const Search: React.FC<SearchProps> = (props) => {
   };
 
   const handleValueClick = () => {
-    props.onClick(searchValue);
+    if (searchValue === '') {
+      localStorage.removeItem('inputValue');
+      const urlParams = new URLSearchParams();
+      navigate(`/?${urlParams.toString()}`);
+      return;
+    }
+    localStorage.setItem('inputValue', searchValue);
+    const urlParams = new URLSearchParams();
+    urlParams.set('search', searchValue);
+    navigate(`/?${urlParams.toString()}`);
   };
 
   return (

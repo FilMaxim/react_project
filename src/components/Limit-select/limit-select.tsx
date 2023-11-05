@@ -1,13 +1,21 @@
 import React from 'react';
 import styles from './limit.module.scss';
-import { CardLimitSelectProps } from '../../types';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
-export const LimitSelect: React.FC<CardLimitSelectProps> = ({ onChange, limit }) => {
+export const LimitSelect: React.FC = () => {
   const options = [1, 2, 5, 10];
+  const limitAPI = 10;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const limit: number = searchParams.get('limit') ? Number(searchParams.get('limit')) : limitAPI;
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = parseInt(event.target.value);
-    onChange(value);
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('limit', value.toString());
+    searchParams.set('page', '1');
+    navigate(`/?${searchParams.toString()}`);
   };
 
   return (

@@ -26,7 +26,6 @@ export const DescriptionPerson: React.FC = () => {
       setFilmsArr(await getNameOfUrl(data.films, 'title'));
       setStarships(await getNameOfUrl(data.starships, 'name'));
       setCharacters(data);
-      console.log(data);
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error);
     } finally {

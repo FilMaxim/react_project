@@ -6,7 +6,7 @@ import styles from './layout.module.scss';
 export const Layout: React.FC = () => {
   const navigate = useNavigate();
   const handleCloseClick = () => {
-    navigate(`/`);
+    navigate(-1);
   };
   return (
     <div className={styles.layout}>

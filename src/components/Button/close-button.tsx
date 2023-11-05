@@ -6,7 +6,7 @@ export const CloseButton = () => {
   const navigate = useNavigate();
 
   const handleClickClose = () => {
-    navigate(`/`);
+    navigate(-1);
   };
 
   return (

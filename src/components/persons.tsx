@@ -1,59 +1,51 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Persone, StarWarsCharactersProps } from '../types';
+import { Persone } from '../types';
 import { Pagination } from './Pagination/pagination';
 import { LimitSelect } from './Limit-select/limit-select';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getId } from '../utils/get-id';
 import { Loader } from './Loader/loader';
 
-export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
+export const StarWarsCharacters = () => {
   const limitAPI = 10;
   const [characters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [pageCurrent, setPageCurrent] = useState(1);
   const [count, setCount] = useState(1);
-  const [limit, setLimit] = useState(limitAPI);
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const pageCurrent: number = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+  const limitCurrent: number = searchParams.get('limit')
+    ? Number(searchParams.get('limit'))
+    : limitAPI;
+
+  const inputSearch: string = searchParams.get('search') ? String(searchParams.get('search')) : '';
 
   useEffect(() => {
     fetchData('');
-  }, [pageCurrent, limit]);
+  }, [pageCurrent, limitCurrent]);
 
   useEffect(() => {
-    if (props.value !== '') {
-      fetchData(props.value);
-    }
-  }, [props.value]);
+    fetchData(inputSearch);
+  }, [inputSearch]);
 
   const fetchData = async (value: string) => {
     setIsLoading(true);
-    const date = localStorage.getItem('date');
-    const searchPeople = date ? date : value.trim();
-
-    const calculatedPage = Math.ceil((pageCurrent * limit) / limitAPI);
-    // https://swapi.py4e.com/
+    const searchPeople = value.trim();
+    const calculatedPage = Math.ceil((pageCurrent * limitCurrent) / limitAPI);
     try {
       const response = searchPeople
-        ? await fetch(`https://swapi.dev/api/people/?search=${searchPeople}`)
+        ? await fetch(`https://swapi.py4e.com/api/people/?search=${searchPeople}`)
         : await fetch(`https://swapi.py4e.com/api/people/?page=${calculatedPage}`);
       const data = await response.json();
-      const startIndex = ((pageCurrent - 1) * limit) % limitAPI;
-      const endIndex = startIndex + limit;
+      const startIndex = ((pageCurrent - 1) * limitCurrent) % limitAPI;
+      const endIndex = startIndex + limitCurrent;
       const slicedResults = data.results.slice(startIndex, endIndex);
       setCharacters(slicedResults);
-      searchPeople ? navigate(`?search=${searchPeople}`) : navigate(`?page=${pageCurrent}`);
-      setCount(Math.ceil(data.count / limit));
+      setCount(Math.ceil(data.count / limitCurrent));
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error);
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleChangeLimit = (value: number) => {
-    setLimit(value);
-    setPageCurrent(1);
   };
 
   return (
@@ -69,7 +61,7 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
             <ul>
               {characters.map((character: Persone) => (
                 <li className="item" key={character.url}>
-                  <Link to={`/details/${getId(character.url)}`}>
+                  <Link to={`/details/${getId(character.url)}?${searchParams.toString()}`}>
                     <div>Name: {character.name}</div>
                     <div>Birth year: {character.birth_year} </div>
                     <div>Gender: {character.gender} </div>
@@ -80,8 +72,8 @@ export const StarWarsCharacters = (props: StarWarsCharactersProps) => {
               ))}
             </ul>
           )}
-          <LimitSelect limit={limit} onChange={handleChangeLimit}></LimitSelect>
-          <Pagination pageCurrent={pageCurrent} count={count} setPageCurrent={setPageCurrent} />
+          <LimitSelect></LimitSelect>
+          <Pagination count={count} />
         </div>
       )}
     </div>
