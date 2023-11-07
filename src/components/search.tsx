@@ -1,42 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ErrorButton } from './Button/error-button';
 import { useNavigate } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
+import { SearchContext } from '../context/search-context';
 
 export const Search: React.FC = () => {
+  const searchContext = useContext(SearchContext);
   const navigate = useNavigate();
-  const valueLocalStorage = localStorage.getItem('inputValue');
-  const [searchParams] = useSearchParams();
-  const inputValue = searchParams.get('inputValue')
-    ? String(searchParams.get('inputValue'))
-    : valueLocalStorage
-    ? valueLocalStorage
-    : '';
-  const [searchValue, setSearchValue] = useState(inputValue);
 
   useEffect(() => {
-    if (!searchParams.get('search') && valueLocalStorage) {
+    if (searchContext.searchValue !== '') {
       const urlParams = new URLSearchParams();
-      urlParams.set('search', valueLocalStorage);
+      urlParams.set('search', searchContext.searchValue);
+      console.log(urlParams.toString());
       navigate(`/?${urlParams.toString()}`);
     }
   }, []);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setSearchValue(value);
+    searchContext.setSearchValue(value);
   };
 
   const handleValueClick = () => {
-    if (searchValue === '') {
+    if (searchContext.searchValue === '') {
       localStorage.removeItem('inputValue');
       const urlParams = new URLSearchParams();
       navigate(`/?${urlParams.toString()}`);
       return;
     }
-    localStorage.setItem('inputValue', searchValue);
+    localStorage.setItem('inputValue', searchContext.searchValue);
     const urlParams = new URLSearchParams();
-    urlParams.set('search', searchValue);
+    urlParams.set('search', searchContext.searchValue);
     navigate(`/?${urlParams.toString()}`);
   };
 
@@ -46,7 +40,7 @@ export const Search: React.FC = () => {
         className="search"
         type="text"
         placeholder="Поиск..."
-        value={searchValue}
+        value={searchContext.searchValue}
         onChange={handleValueChange}
       />
       <button onClick={handleValueClick}>Поиск</button>
