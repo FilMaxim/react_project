@@ -1,3 +1,10 @@
+export interface DataAPI {
+  count: number;
+  next: string | null;
+  previouls: string | null;
+  results: Persone[];
+}
+
 export interface Persone {
   birth_year: string;
   created: string;

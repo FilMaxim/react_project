@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ErrorButton } from './Button/error-button';
 import { useNavigate } from 'react-router';
 import { SearchContext } from '../context/search-context';
 
 export const Search: React.FC = () => {
   const searchContext = useContext(SearchContext);
+  const [value, setValue] = useState(searchContext.searchValue);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,20 +18,24 @@ export const Search: React.FC = () => {
   }, []);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    searchContext.setSearchValue(value);
+    const valueCurrent = event.target.value;
+    setValue(valueCurrent);
   };
 
   const handleValueClick = () => {
-    if (searchContext.searchValue === '') {
+    if (value === '') {
       localStorage.removeItem('inputValue');
       const urlParams = new URLSearchParams();
       navigate(`/?${urlParams.toString()}`);
+      setValue(value);
+      searchContext.setSearchValue(value);
       return;
     }
-    localStorage.setItem('inputValue', searchContext.searchValue);
+    localStorage.setItem('inputValue', value);
     const urlParams = new URLSearchParams();
-    urlParams.set('search', searchContext.searchValue);
+    urlParams.set('search', value);
+    setValue(value);
+    searchContext.setSearchValue(value);
     navigate(`/?${urlParams.toString()}`);
   };
 
@@ -40,7 +45,7 @@ export const Search: React.FC = () => {
         className="search"
         type="text"
         placeholder="Поиск..."
-        value={searchContext.searchValue}
+        value={value}
         onChange={handleValueChange}
       />
       <button onClick={handleValueClick}>Поиск</button>

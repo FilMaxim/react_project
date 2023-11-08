@@ -1,52 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Persone } from '../types';
 import { Pagination } from './Pagination/pagination';
 import { LimitSelect } from './Limit-select/limit-select';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getId } from '../utils/get-id';
 import { Loader } from './Loader/loader';
+import { useStarWarsAPI } from '../API/api';
+import { SearchContext } from '../context/search-context';
 
 export const StarWarsCharacters = () => {
-  const limitAPI = 10;
-  const [characters, setCharacters] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [count, setCount] = useState(1);
   const [searchParams] = useSearchParams();
+  const searchContext = useContext(SearchContext);
   const pageCurrent: number = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
-  const limitCurrent: number = searchParams.get('limit')
-    ? Number(searchParams.get('limit'))
-    : limitAPI;
-
-  const inputSearch: string = searchParams.get('search') ? String(searchParams.get('search')) : '';
-
-  useEffect(() => {
-    fetchData('');
-  }, [pageCurrent, limitCurrent]);
-
-  useEffect(() => {
-    fetchData(inputSearch);
-  }, [inputSearch]);
-
-  const fetchData = async (value: string) => {
-    setIsLoading(true);
-    const searchPeople = value.trim();
-    const calculatedPage = Math.ceil((pageCurrent * limitCurrent) / limitAPI);
-    try {
-      const response = searchPeople
-        ? await fetch(`https://swapi.py4e.com/api/people/?search=${searchPeople}`)
-        : await fetch(`https://swapi.py4e.com/api/people/?page=${calculatedPage}`);
-      const data = await response.json();
-      const startIndex = ((pageCurrent - 1) * limitCurrent) % limitAPI;
-      const endIndex = startIndex + limitCurrent;
-      const slicedResults = data.results.slice(startIndex, endIndex);
-      setCharacters(slicedResults);
-      setCount(Math.ceil(data.count / limitCurrent));
-    } catch (error) {
-      console.error('Ошибка при загрузке данных:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const limitCurrent: number = searchParams.get('limit') ? Number(searchParams.get('limit')) : 10;
+  const { isLoading, count } = useStarWarsAPI(pageCurrent, limitCurrent);
 
   return (
     <div>
@@ -55,11 +22,11 @@ export const StarWarsCharacters = () => {
         <Loader />
       ) : (
         <div>
-          {characters.length === 0 ? (
+          {searchContext.data.length === 0 ? (
             <h2>Ничего не найдено 😟 </h2>
           ) : (
             <ul>
-              {characters.map((character: Persone) => (
+              {searchContext.data.map((character: Persone) => (
                 <li className="item" key={character.url}>
                   <Link to={`/details/${getId(character.url)}?${searchParams.toString()}`}>
                     <div>Name: {character.name}</div>
