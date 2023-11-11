@@ -2,12 +2,6 @@ import { render, fireEvent } from '@testing-library/react';
 import { MemoryRouter, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { LimitSelect } from '../components/Limit-select/limit-select';
 
-// vi.mock('react-router-dom', () => ({
-//   useLocation: vi.fn(),
-//   useNavigate: vi.fn(),
-//   useSearchParams: vi.fn(),
-// }));
-
 describe('LimitSelect', () => {
   const mockLocation = {
     search: '',
@@ -16,12 +10,6 @@ describe('LimitSelect', () => {
   const mockSearchParams = {
     get: vi.fn(),
   };
-
-  // beforeEach(() => {
-  //   useLocation.mockReturnValue(mockLocation);
-  //   useNavigate.mockReturnValue(mockNavigate);
-  //   useSearchParams.mockReturnValue(mockSearchParams);
-  // });
 
   afterEach(() => {
     vi.clearAllMocks();
@@ -52,7 +40,7 @@ describe('LimitSelect', () => {
         <LimitSelect />
       </MemoryRouter>
     );
-    const selectElement = getByRole('combobox') as HTMLSelectElement;;
+    const selectElement = getByRole('combobox') as HTMLSelectElement;
     fireEvent.change(selectElement, { target: { value: '2' } });
     expect(selectElement.value).toBe('2');
   });

@@ -1,7 +1,6 @@
 import { render, screen, act } from '@testing-library/react';
 import { DescriptionPerson } from '../components/Descripton/description';
 import { MemoryRouter } from 'react-router-dom';
-import { CloseButton } from '../components/Button/close-button';
 
 describe('DescriptionPerson', () => {
   it('should render the loading indicator when isLoading is true', () => {

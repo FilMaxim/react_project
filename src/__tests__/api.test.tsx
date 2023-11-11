@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { SearchContext } from '../context/search-context';
 import { useStarWarsAPI } from '../API/api';
@@ -55,9 +55,7 @@ describe('useStarWarsAPI', () => {
     render(<TestComponent />);
 
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://swapi.py4e.com/api/people/?page=1'
-      );
+      expect(global.fetch).toHaveBeenCalledWith('https://swapi.py4e.com/api/people/?page=1');
       expect(setData).toHaveBeenCalledTimes(1);
     });
   });

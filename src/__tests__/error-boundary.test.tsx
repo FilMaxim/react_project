@@ -23,5 +23,4 @@ describe('ErrorBoundary', () => {
     );
     expect(getByText('Что-то пошло не так. Пожалуйста, попробуйте еще раз.')).toBeInTheDocument();
   });
-})
-
+});
