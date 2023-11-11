@@ -3,7 +3,11 @@ import styles from './button.module.scss';
 
 export const ErrorButton = () => {
   const handleClick = () => {
-    throw new Error('Пример ошибки');
+    try {
+      throw new Error('Пример ошибки');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

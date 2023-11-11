@@ -10,7 +10,7 @@ export const CloseButton = () => {
   };
 
   return (
-    <div className={styles.clbtn1} onClick={handleClickClose}>
+    <div data-testid="close-button" className={styles.clbtn1} onClick={handleClickClose}>
       <div>
         <span className={styles.left}>
           <span className={styles.circle_left}></span>

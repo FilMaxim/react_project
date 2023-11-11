@@ -21,7 +21,12 @@ export const LimitSelect: React.FC = () => {
   return (
     <div className={styles.select_wrap}>
       <p className={styles.title_limit}>Количество карточек:</p>
-      <select value={limit} className={styles.select} onChange={handleChange}>
+      <select
+        data-testid="combobox"
+        value={limit}
+        className={styles.select}
+        onChange={handleChange}
+      >
         {options.map((option) => (
           <option key={option} value={option}>
             {option}
