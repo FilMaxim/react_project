@@ -1,0 +1,17 @@
+.select_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.title_limit {
+  font-size: 18px;
+}
+
+.select {
+  padding: 4px;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
