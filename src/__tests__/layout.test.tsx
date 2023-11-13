@@ -1,5 +1,5 @@
-import { MemoryRouter } from "react-router-dom";
-import { Layout } from "../components/Layuot/layout";
+import { MemoryRouter } from 'react-router-dom';
+import { Layout } from '../components/Layuot/layout';
 import { render, screen } from '@testing-library/react';
 
 describe('App', () => {
@@ -12,4 +12,4 @@ describe('App', () => {
     const mainPageElement = screen.getByText(/Персонажи Звездных Войн/i);
     expect(mainPageElement).toBeInTheDocument();
   });
-})
+});
