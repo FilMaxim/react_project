@@ -5,10 +5,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { getId } from '../utils/get-id';
 import { Loader } from './Loader/loader';
 import { useGetsPeopleQuery } from '../features/peopleApi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { setCards } from '../features/cardsSlice';
-import { setIsLoading } from '../features/isLoadingSlice';
 
 export const StarWarsCharacters = () => {
   const [searchParams] = useSearchParams();
@@ -18,11 +16,11 @@ export const StarWarsCharacters = () => {
     ? Number(searchParams.get('limit'))
     : limitAPI;
   const search = useSelector((state: RootState) => state.search.searchValue);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const { data, isLoading } = useGetsPeopleQuery({ search, pageCurrent, limitCurrent });
-  dispatch(setCards(data));
-  dispatch(setIsLoading(isLoading));
-  if (!data) return;
+  //dispatch(setCards(data?.cards));
+  //dispatch(setIsLoading(isLoading));
+  // В onQueryStarted советую эту логику делать (в RTK query)
 
   return (
     <div>
@@ -37,7 +35,7 @@ export const StarWarsCharacters = () => {
             <ul>
               {data &&
                 data.cards.map((character: Persone) => (
-                  <li className="item" key={character.url}>
+                  <li data-testid="link-card" className="item" key={character.url}>
                     <Link to={`/details/${getId(character.url)}?${searchParams.toString()}`}>
                       <div>Name: {character.name}</div>
                       <div>Birth year: {character.birth_year} </div>
@@ -50,7 +48,7 @@ export const StarWarsCharacters = () => {
             </ul>
           )}
           <LimitSelect></LimitSelect>
-          <Pagination count={data.maxPage} />
+          <Pagination count={data ? data.maxPage : 1} />
         </div>
       )}
     </div>

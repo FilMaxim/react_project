@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Persone } from '../types';
 
-const initialState = {
+interface CardsState {
+  cards: Persone[];
+}
+
+const initialState: CardsState = {
   cards: [],
 };
 

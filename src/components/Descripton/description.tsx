@@ -13,13 +13,13 @@ export const DescriptionPerson: React.FC = () => {
   dispatch(setIsLoading(isLoading));
 
   return (
-    <>
+    <div data-testid="desc-page">
       <CloseButton />
-      <h3> Детали персонажа: {data ? data.name : id}</h3>
+      <h3 role="heading"> Детали персонажа: {data ? data.name : id}</h3>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className={styles.description}>
+        <div className={styles.description} data-testid="character-page">
           {!data ? (
             <h2>Ничего не найдено 😟 </h2>
           ) : (
@@ -35,6 +35,6 @@ export const DescriptionPerson: React.FC = () => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
