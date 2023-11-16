@@ -1,19 +1,28 @@
-import React, { useContext } from 'react';
 import { Persone } from '../types';
 import { Pagination } from './Pagination/pagination';
 import { LimitSelect } from './Limit-select/limit-select';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getId } from '../utils/get-id';
 import { Loader } from './Loader/loader';
-import { useStarWarsAPI } from '../API/api';
-import { SearchContext } from '../context/search-context';
+import { useGetsPeopleQuery } from '../features/peopleApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { setCards } from '../features/cardsSlice';
+import { setIsLoading } from '../features/isLoadingSlice';
 
 export const StarWarsCharacters = () => {
   const [searchParams] = useSearchParams();
-  const searchContext = useContext(SearchContext);
+  const limitAPI = 10;
   const pageCurrent: number = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
-  const limitCurrent: number = searchParams.get('limit') ? Number(searchParams.get('limit')) : 10;
-  const { isLoading, count } = useStarWarsAPI(pageCurrent, limitCurrent);
+  const limitCurrent: number = searchParams.get('limit')
+    ? Number(searchParams.get('limit'))
+    : limitAPI;
+  const search = useSelector((state: RootState) => state.search.searchValue);
+  const dispatch = useDispatch();
+  const { data, isLoading } = useGetsPeopleQuery({ search, pageCurrent, limitCurrent });
+  dispatch(setCards(data));
+  dispatch(setIsLoading(isLoading));
+  if (!data) return;
 
   return (
     <div>
@@ -22,25 +31,26 @@ export const StarWarsCharacters = () => {
         <Loader />
       ) : (
         <div>
-          {searchContext.data.length === 0 ? (
+          {data && data.cards.length === 0 ? (
             <h2>Ничего не найдено 😟 </h2>
           ) : (
             <ul>
-              {searchContext.data.map((character: Persone) => (
-                <li className="item" key={character.url}>
-                  <Link to={`/details/${getId(character.url)}?${searchParams.toString()}`}>
-                    <div>Name: {character.name}</div>
-                    <div>Birth year: {character.birth_year} </div>
-                    <div>Gender: {character.gender} </div>
-                    <div>Mass: {character.mass} kg</div>
-                    <div>Height: {character.height} mm</div>
-                  </Link>
-                </li>
-              ))}
+              {data &&
+                data.cards.map((character: Persone) => (
+                  <li className="item" key={character.url}>
+                    <Link to={`/details/${getId(character.url)}?${searchParams.toString()}`}>
+                      <div>Name: {character.name}</div>
+                      <div>Birth year: {character.birth_year} </div>
+                      <div>Gender: {character.gender} </div>
+                      <div>Mass: {character.mass} kg</div>
+                      <div>Height: {character.height} mm</div>
+                    </Link>
+                  </li>
+                ))}
             </ul>
           )}
           <LimitSelect></LimitSelect>
-          <Pagination count={count} />
+          <Pagination count={data.maxPage} />
         </div>
       )}
     </div>

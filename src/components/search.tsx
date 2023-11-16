@@ -1,18 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ErrorButton } from './Button/error-button';
 import { useNavigate } from 'react-router';
-import { SearchContext } from '../context/search-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearch } from '../features/searchSlice';
+import { RootState } from '../store/store';
 
 export const Search: React.FC = () => {
-  const searchContext = useContext(SearchContext);
-  const [value, setValue] = useState(searchContext.searchValue);
+  const dispatch = useDispatch();
+  const search = useSelector((state: RootState) => state.search.searchValue);
+  const [value, setValue] = useState(search);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (searchContext.searchValue !== '') {
+    if (search !== '') {
       const urlParams = new URLSearchParams();
-      urlParams.set('search', searchContext.searchValue);
-      console.log(urlParams.toString());
+      urlParams.set('search', search);
       navigate(`/?${urlParams.toString()}`);
     }
   }, []);
@@ -28,14 +30,16 @@ export const Search: React.FC = () => {
       const urlParams = new URLSearchParams();
       navigate(`/?${urlParams.toString()}`);
       setValue(value);
-      searchContext.setSearchValue(value);
+      dispatch(setSearch(value));
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set('page', '1');
       return;
     }
+    setValue(value);
     localStorage.setItem('inputValue', value);
     const urlParams = new URLSearchParams();
     urlParams.set('search', value);
-    setValue(value);
-    searchContext.setSearchValue(value);
+    dispatch(setSearch(value));
     navigate(`/?${urlParams.toString()}`);
   };
 

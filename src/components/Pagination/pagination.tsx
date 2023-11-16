@@ -10,7 +10,6 @@ interface PaginationProps {
 export const Pagination = ({ count }: PaginationProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  //const [searchParams] = useSearchParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const pageCurrent: number = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
