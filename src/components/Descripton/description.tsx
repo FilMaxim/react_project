@@ -14,7 +14,6 @@ export const DescriptionPerson: React.FC = () => {
 
   useEffect(() => {
     dispatch(setIsLoadingDesc(isFetching));
-    console.log(isFetching);
   }, [dispatch]);
 
   return (

@@ -15,7 +15,6 @@ export const cardsSlice = createSlice({
   reducers: {
     setCards: (state, action) => {
       state.cards = action.payload;
-      console.log(state.cards);
     },
   },
 });
