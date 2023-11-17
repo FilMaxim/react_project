@@ -4,7 +4,6 @@ import { Persone } from '../types';
 import { store } from '../store/store';
 
 describe('cardsSlice', () => {
-
   interface CardsState {
     cards: Persone[];
   }

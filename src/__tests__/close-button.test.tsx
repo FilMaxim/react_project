@@ -10,8 +10,6 @@ import { DescriptionPerson } from '../components/Descripton/description';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 
-
-
 describe('CloseButton', () => {
   vi.mock('react-router-dom/hooks/useNavigate');
 
@@ -29,7 +27,7 @@ describe('CloseButton', () => {
     await act(async () => {
       render(
         <Provider store={store}>
-          <MemoryRouter initialEntries={['/details/1']}>
+          <MemoryRouter initialEntries={['/details/2']}>
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/details/" element={<Layout />}>
@@ -39,12 +37,10 @@ describe('CloseButton', () => {
             </Routes>
           </MemoryRouter>
         </Provider>
-
       );
     });
     await fireEvent.click(screen.getByTestId('close-button'));
-    const page = screen.queryByTestId('desc-page')
+    const page = screen.queryByTestId('desc-page');
     expect(page).not.toBeInTheDocument();
   });
-})
-
+});

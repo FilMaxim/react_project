@@ -3,7 +3,6 @@ import { store } from '../store/store';
 import { setSearch } from '../features/searchSlice';
 
 describe('searchSlice', () => {
-
   const initialState = {
     searchValue: '',
   };

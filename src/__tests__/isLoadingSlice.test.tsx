@@ -3,7 +3,6 @@ import { store } from '../store/store';
 import { setIsLoading } from '../features/isLoadingSlice';
 
 describe('isLoadingSlice', () => {
-
   const initialState = {
     isLoading: false,
   };
@@ -14,7 +13,6 @@ describe('isLoadingSlice', () => {
       ...initialState,
       isLoading: payload,
     };
-
 
     store.dispatch(setIsLoading(payload));
     expect(store.getState().isLoading.isLoading).toEqual(expectedState.isLoading);

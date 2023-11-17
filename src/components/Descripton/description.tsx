@@ -4,19 +4,24 @@ import { CloseButton } from '../Button/close-button';
 import { Loader } from '../Loader/loader';
 import { useGetDescriptionQuery } from '../../features/peopleApi';
 import { useDispatch } from 'react-redux';
-import { setIsLoading } from '../../features/isLoadingSlice';
+import { useEffect } from 'react';
+import { setIsLoadingDesc } from '../../features/isLoadingDescSlice';
 
 export const DescriptionPerson: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetDescriptionQuery(id);
+  const { data, isFetching } = useGetDescriptionQuery(id);
   const dispatch = useDispatch();
-  dispatch(setIsLoading(isLoading));
+
+  useEffect(() => {
+    dispatch(setIsLoadingDesc(isFetching));
+    console.log(isFetching);
+  }, [dispatch]);
 
   return (
     <div data-testid="desc-page">
       <CloseButton />
       <h3 role="heading"> Детали персонажа: {data ? data.name : id}</h3>
-      {isLoading ? (
+      {isFetching ? (
         <Loader />
       ) : (
         <div className={styles.description} data-testid="character-page">

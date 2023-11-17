@@ -5,8 +5,11 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { getId } from '../utils/get-id';
 import { Loader } from './Loader/loader';
 import { useGetsPeopleQuery } from '../features/peopleApi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+import { useEffect } from 'react';
+import { setCards } from '../features/cardsSlice';
+import { setIsLoading } from '../features/isLoadingSlice';
 
 export const StarWarsCharacters = () => {
   const [searchParams] = useSearchParams();
@@ -16,16 +19,20 @@ export const StarWarsCharacters = () => {
     ? Number(searchParams.get('limit'))
     : limitAPI;
   const search = useSelector((state: RootState) => state.search.searchValue);
-  //const dispatch = useDispatch();
-  const { data, isLoading } = useGetsPeopleQuery({ search, pageCurrent, limitCurrent });
-  //dispatch(setCards(data?.cards));
-  //dispatch(setIsLoading(isLoading));
-  // В onQueryStarted советую эту логику делать (в RTK query)
+  const dispatch = useDispatch();
+
+  const { data, isFetching, isError } = useGetsPeopleQuery({ search, pageCurrent, limitCurrent });
+  useEffect(() => {
+    dispatch(setCards(data?.cards));
+    dispatch(setIsLoading(isFetching));
+  }, [data, isFetching]);
+
+  if (isError) return <div>Произошла ошибка на сервере! Ааааа....</div>;
 
   return (
     <div>
       <h1>Персонажи Звездных Войн</h1>
-      {isLoading ? (
+      {isFetching ? (
         <Loader />
       ) : (
         <div>
