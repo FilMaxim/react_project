@@ -5,9 +5,7 @@ import { App } from '../App';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 
-
 describe('StarWarsCharacters', () => {
-
   test('renders Star Wars characters component', () => {
     render(
       <Provider store={store}>
@@ -24,14 +22,13 @@ describe('StarWarsCharacters', () => {
     render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/']}>
-          < StarWarsCharacters />
+          <StarWarsCharacters />
         </MemoryRouter>
       </Provider>
     );
     await waitFor(() => {
       const errorMessage = screen.getByText(/Произошла ошибка на сервере!/i);
       expect(errorMessage).toBeInTheDocument();
-    })
+    });
   });
-})
-
+});

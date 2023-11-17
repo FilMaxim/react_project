@@ -19,7 +19,6 @@ vi.mock('react-router', () => ({
   useNavigate: vi.fn(),
 }));
 describe('Search', () => {
-
   const mockDispatch = vi.fn();
   const mockNavigate = vi.fn();
   const mockSelector = vi.fn();
@@ -27,11 +26,14 @@ describe('Search', () => {
   beforeEach(() => {
     (useDispatch as Mock).mockReturnValue(mockDispatch);
     (useNavigate as Mock).mockReturnValue(mockNavigate);
-    (useSelector as Mock).mockImplementation((selector: (arg0: { search: { searchValue: string; }; }) => any) => selector({
-      search: {
-        searchValue: mockSelector(),
-      },
-    }));
+    (useSelector as Mock).mockImplementation(
+      (selector: (arg0: { search: { searchValue: string } }) => any) =>
+        selector({
+          search: {
+            searchValue: mockSelector(),
+          },
+        })
+    );
   });
 
   afterEach(() => {
@@ -71,7 +73,6 @@ describe('Search', () => {
     fireEvent.click(button);
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledWith({ type: 'search/setSearch', payload: undefined });
-    })
-
+    });
   });
 });
