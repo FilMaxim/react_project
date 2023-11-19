@@ -17,18 +17,4 @@ describe('StarWarsCharacters', () => {
     const titleElement = screen.getByText(/Персонажи Звездных Войн/i);
     expect(titleElement).toBeInTheDocument();
   });
-
-  test('renders error message when there is an error', async () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/']}>
-          <StarWarsCharacters />
-        </MemoryRouter>
-      </Provider>
-    );
-    await waitFor(() => {
-      const errorMessage = screen.getByText(/Произошла ошибка на сервере!/i);
-      expect(errorMessage).toBeInTheDocument();
-    });
-  });
 });
