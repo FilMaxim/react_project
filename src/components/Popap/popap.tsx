@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router';
+import { useSearchParams } from 'next/navigation';
 import styles from './popap.module.scss';
-import { useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 export const Popap: React.FC = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const handleCloseClick = () => {
-    navigate(`/?${searchParams.toString()}`);
+    router.push(`/?${searchParams.toString()}`);
   };
   return <div className={styles.popap} onClick={handleCloseClick}></div>;
 };

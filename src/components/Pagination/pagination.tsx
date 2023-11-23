@@ -1,6 +1,5 @@
-import { useLocation, useNavigate } from 'react-router';
+import { useRouter } from 'next/router';
 import styles from './pagination.module.scss';
-import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 interface PaginationProps {
@@ -8,22 +7,26 @@ interface PaginationProps {
 }
 
 export const Pagination = ({ count }: PaginationProps) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageCurrent: number = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+  const router = useRouter();
+  const { query } = router;
+  const pageCurrent: number = query.page ? Number(query.page) : 1;
 
   const handlePageChange = (page: number) => {
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set('page', page.toString());
-    navigate(`/?${searchParams.toString()}`);
+    const queryParams = { ...query, page: page.toString() };
+    router.push({
+      pathname: router.pathname,
+      query: queryParams,
+    });
   };
 
   useEffect(() => {
-    const newSearchParams = new URLSearchParams(location.search);
-    newSearchParams.set('page', pageCurrent.toString());
-    setSearchParams(newSearchParams);
-  }, [pageCurrent, setSearchParams]);
+    const queryParams = { ...query, page: pageCurrent.toString() };
+    router.push({
+      pathname: router.pathname,
+      query: queryParams,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageCurrent]);
 
   return (
     <div className={styles.pagination} data-testid="pagination">

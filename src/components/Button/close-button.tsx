@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './button.module.scss';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 export const CloseButton = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleClickClose = () => {
-    navigate(`/?${searchParams.toString()}`);
+    router.push(`/?${searchParams.toString()}`);
   };
 
   return (
