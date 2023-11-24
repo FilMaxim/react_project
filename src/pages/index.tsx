@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MainPage from './main';
+import MainPage from '../components/MainPage/main';
 import { Layout } from '@/components/Layout/layout';
 import { wrapper } from '@/lib/store';
 import { getRunningQueriesThunk, getsPeople, useGetsPeopleQuery } from '@/lib/peopleApi';

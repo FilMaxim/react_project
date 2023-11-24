@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './layuot.module.css';
 import { DescriptionPerson } from '../Description/description';
-import MainPage from '@/pages/main';
+import MainPage from '@/components/MainPage/main';
 import { Popap } from '../Popap/popap';
 import { Props, PropsDet } from '@/types';
 

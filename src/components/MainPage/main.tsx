@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from '../styles/main.module.css'
+import styles from './main.module.css'
 import { Search } from '@/components/Search/search';
 import Persons from '@/components/Cards/cards';
 import { InferGetServerSidePropsType } from 'next';
-import { getServerSideProps } from '.';
+import { getServerSideProps } from '../../pages';
 import { ResultPeople } from '@/api/useFetchPeople';
 import { Persone, Props } from '@/types';
 

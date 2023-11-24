@@ -5,7 +5,7 @@ import Persons from '@/components/Cards/cards';
 import { Layout } from '@/components/Layout/layout';
 import { DataAPI, IData, Persone, Props } from '@/types';
 import { useRouter } from 'next/router';
-import MainPage from '../main';
+import MainPage from '../../components/MainPage/main';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Loader } from '@/components/Loader/loader';
 
