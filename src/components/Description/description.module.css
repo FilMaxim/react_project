@@ -4,13 +4,14 @@
   flex-direction: column;
   justify-content: start;
   font-size: 20px;
+}
 
-  p {
+.p {
     margin: 0.1em;
     text-align: center;
-  }
+}
 
-  .list {
+.list {
     margin: 0;
     padding: 0;
     display: flex;
@@ -19,11 +20,5 @@
     justify-content: center;
     padding-left: 15px;
     list-style: none;
-  }
-
-  li:before {
-    content: '—';
-    position: relative;
-    left: -5px;
-  }
 }
+

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import styles from './limit.module.scss';
+import styles from './limit.module.css';
 
 const LimitSelect = () => {
   const options = [1, 2, 5, 10];

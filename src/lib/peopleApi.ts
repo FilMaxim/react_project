@@ -21,7 +21,7 @@ export const peopleApi = createApi({
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const data = await queryFulfilled;
-          dispatch(setCards(data.data));
+          dispatch(setCards(data));
         } catch (error) {
           console.error(error)
         }
@@ -35,6 +35,7 @@ export const peopleApi = createApi({
           cards: slicedResults,
           maxPage: Math.ceil(response.count / limitCurrent),
         };
+
       },
     }),
     getDescription: build.query({

@@ -1,5 +1,5 @@
 import { useSearchParams } from 'next/navigation';
-import styles from './popap.module.scss';
+import styles from './popap.module.css';
 import { useRouter } from 'next/router';
 
 export const Popap: React.FC = () => {

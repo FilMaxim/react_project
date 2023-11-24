@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
-import styles from './pagination.module.scss';
+import styles from './pagination.module.css';
 import { useEffect } from 'react';
+import { Props } from '@/types';
 
 interface PaginationProps {
   count: number;

@@ -33,11 +33,31 @@ export interface SearchState {
   searchValue: string;
 }
 
-export type Props = {
-  callback: (value: string) => void;
-  value: string;
-};
+export interface Props {
+  data: {
+    people: Persone[],
+    maxPage: number,
+  }
+}
+export interface PropsDet {
+  data: {
+    people: Persone[],
+    maxPage: number,
+    details?: Persone;
+  }
+}
+
+export interface Details {
+  data: {
+    details?: Persone;
+  }
+}
 
 export type State = {
   value: string;
 };
+
+export interface IData {
+  people: Persone[];
+  maxPage: number
+}
