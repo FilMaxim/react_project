@@ -1,27 +1,11 @@
 import styles from './description.module.css';
 import { CloseButton } from '../Button/close-button';
-import { Loader } from '../Loader/loader';
 import { wrapper } from '@/lib/store';
 import { getDescription, getRunningQueriesThunk, useGetDescriptionQuery } from '@/lib/peopleApi';
 import { useRouter } from 'next/router';
 import { Details } from '@/types';
 
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   (store) => async (context) => {
-//     const id = Number(context.params?.id) || 1;
-//     store.dispatch(getDescription.initiate({ id }));
-//     await Promise.all(store.dispatch(getRunningQueriesThunk()));
-//     return {
-//       props: {},
-//     };
-//   }
-// );
 export const DescriptionPerson = ({ data }: Details) => {
-  // const router = useRouter();
-  // const { id } = router.query;
-  // const { data, isFetching } = useGetDescriptionQuery(id);
-
-
   return (
     <div data-testid="desc-page">
       <CloseButton />
@@ -42,7 +26,6 @@ export const DescriptionPerson = ({ data }: Details) => {
           </>
         )}
       </div>
-
     </div>
   );
 };

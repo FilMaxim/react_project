@@ -4,8 +4,6 @@ import { peopleApi } from "./peopleApi";
 import searchSlice from "./searchSlice";
 import cardsSlice from "./cardsSlice";
 
-
-
 export const makeStore = () =>
   configureStore({
     reducer: {

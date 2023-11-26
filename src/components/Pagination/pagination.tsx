@@ -41,7 +41,7 @@ export const Pagination = ({ count }: PaginationProps) => {
       >
         &lt;
       </div>
-      <span className={styles.page_currrent}>
+      <span data-testid="count" className={styles.page_currrent}>
         {pageCurrent}/{count}
       </span>
       <div

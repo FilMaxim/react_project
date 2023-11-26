@@ -1,76 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MainPage from '../components/MainPage/main';
-import { Layout } from '@/components/Layout/layout';
-import { wrapper } from '@/lib/store';
-import { getRunningQueriesThunk, getsPeople, useGetsPeopleQuery } from '@/lib/peopleApi';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { DataAPI, IData, Persone } from '@/types';
-import { QueryClient, dehydrate } from '@tanstack/react-query';
-import useFetchPeople, { getPeople } from '@/api/useFetchPeople';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { getId } from '@/utils/get-id';
-import { Loader } from '@/components/Loader/loader';
 
 export interface Data {
   cards: Persone[],
   maxPage: number,
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-//   const { page, limit, search } = query
-
-//   const queryClient = new QueryClient()
-//   try {
-//     await Promise.all([
-//       await queryClient.prefetchQuery({
-//         queryKey: ['people', 1, {}],
-//         queryFn: () => getPeople({ page: Number(page), limit: Number(limit) }),
-//       }),
-//     ])
-//     const people = queryClient.getQueryData(['people', 1, {}])
-
-//     // if (!people) {
-//     //   return {
-//     //     redirect: {
-//     //       destination: '/404',
-//     //       permanent: false,
-//     //     },
-//     //   }
-//     // }
-
-//     return {
-//       props: {
-//         dehydratedState: dehydrate(queryClient),
-//       },
-//     }
-//   } catch (error) {
-//     console.log(error)
-
-//     return {
-//       redirect: {
-//         destination: '/404',
-//         permanent: false,
-//       },
-//     }
-//   }
-// }
-
 export default function Home({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // const [page1, setPage] = useState<number>(1)
-  // const { query } = useRouter()
-  // const { page, limit, search } = query
-  // const { data } = useFetchPeople({ page: Number(page), limit: Number(limit) })
-  console.log(data.maxPage)
   return (
     <>
       {data && data.people ? (
         <MainPage data={data} />
       ) : (
-        <Loader />
+        <p>Загрузка....</p>
       )}
-
-
     </>
   );
 };

@@ -1,10 +1,6 @@
-import Head from "next/head";
 import Link from "next/link";
 import utilStyles from "./persons.module.css";
 import { useRouter } from "next/dist/client/router";
-import { wrapper } from "@/lib/store";
-import { getRunningQueriesThunk, getsPeople, useGetsPeopleQuery } from "@/lib/peopleApi";
-import { Loader } from "../Loader/loader";
 import { Persone, Props } from "@/types";
 import { getId } from "@/utils/get-id";
 import LimitSelect from "../Limit-selest/limit-selest";
@@ -13,14 +9,11 @@ import { useSearchParams } from "next/navigation";
 
 export default function Persons({ data }: Props) {
   const router = useRouter();
-
   const { page, limit, search } = router.query;
-
   return (
     <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
       <div>
         <h1 className={utilStyles.title}>Персонажи Звездных Войн</h1>
-
         <div>
           {data.people && data.people.length === 0 ? (
             <h2>Ничего не найдено 😟 </h2>
@@ -43,7 +36,6 @@ export default function Persons({ data }: Props) {
           <LimitSelect></LimitSelect>
           <Pagination count={data.maxPage} />
         </div>
-
       </div>
     </section>
   );

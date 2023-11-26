@@ -7,15 +7,12 @@ import { DataAPI, IData, Persone, Props } from '@/types';
 import { useRouter } from 'next/router';
 import MainPage from '../../components/MainPage/main';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { Loader } from '@/components/Loader/loader';
 
 export interface IDataDet {
   people: Persone[];
   maxPage: number;
   details?: Persone;
-
 }
-
 
 export const Details = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
@@ -23,7 +20,7 @@ export const Details = ({ data }: InferGetServerSidePropsType<typeof getServerSi
       {data && data.details ? (
         <Layout data={data} />
       ) : (
-        <Loader />
+        <p>Загрузка....</p>
       )}
     </>
   );

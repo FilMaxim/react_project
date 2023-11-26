@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
 import { ErrorButton } from '../Button/error-button';
 
 
 export const Search: React.FC = () => {
-  //const search = useSelector((state: RootState) => state.search.searchValue);
   const [value, setValue] = useState('');
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (search !== '') {
-  //     const urlParams = new URLSearchParams();
-  //     urlParams.set('search', search);
-  //     router.push(`/?${urlParams.toString()}`);
-  //   }
-  // }, [search]);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const valueCurrent = event.target.value;
