@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { MainPage } from "./pages/MainPages";
-import ErrorPage from "./pages/ErrorPage";
 import { FormPage } from "./pages/FormPage";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
@@ -13,7 +12,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
-    errorElement: <ErrorPage />,
+    //errorElement: <ErrorPage />,
   },
   {
     path: "form",

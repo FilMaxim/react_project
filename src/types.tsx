@@ -20,3 +20,15 @@ export interface VisibilityIconProps {
   handleVisibility: () => void;
   passwordVisibility: boolean;
 }
+
+export interface FormData {
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  gender: "male" | "female";
+  termsAndConditions: boolean;
+  country: string;
+  image?: string;
+}

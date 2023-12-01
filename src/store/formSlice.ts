@@ -1,31 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export interface FormData {
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  gender: "male" | "female";
+  termsAndConditions: boolean;
+  country: string;
+  image?: string;
+}
+
 interface FormState {
-  formData: {
-    name: string;
-    age: number | null;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    gender: "male" | "female";
-    termsAndConditions: boolean;
-    country: string;
-    image: string | null;
-  };
+  formData: FormData[];
 }
 
 const initialState: FormState = {
-  formData: {
-    name: "",
-    age: null,
-    email: "",
-    password: "",
-    confirmPassword: "string",
-    gender: "male",
-    termsAndConditions: false,
-    country: "",
-    image: null,
-  },
+  formData: [],
 };
 
 export const formSlice = createSlice({
@@ -33,10 +25,18 @@ export const formSlice = createSlice({
   initialState,
   reducers: {
     setFormData: (state, action) => {
-      state.formData = action.payload;
+      state.formData.push(action.payload);
     },
     setImage: (state, action) => {
-      state.formData.image = action.payload;
+      state.formData = state.formData.map((data, index) => {
+        if (index === state.formData.length - 1) {
+          return {
+            ...data,
+            image: action.payload,
+          };
+        }
+        return data;
+      });
     },
   },
 });
