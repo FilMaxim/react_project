@@ -37,8 +37,6 @@ export const FormPage: React.FC = () => {
     const imageFile = imageRef.current?.files?.[0];
     const country = countryRef.current?.value;
 
-    // console.log(country)
-
     try {
       await validationSchema.validate(
         {
@@ -74,7 +72,6 @@ export const FormPage: React.FC = () => {
         };
         reader.readAsDataURL(imageFile);
       }
-      console.log("все проверки пройдены", imageFile);
       setErrors({});
       navigate(`/`);
     } catch (error) {

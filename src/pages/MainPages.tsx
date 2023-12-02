@@ -6,18 +6,19 @@ import Cards from "../components/Cards";
 
 export const MainPage = () => {
   const formData = useSelector((state: RootState) => state.formData);
-  console.log(Array.isArray(formData.formData));
   return (
     <>
       <Header />
-      <h2>Главная страница</h2>
-      {Array.isArray(formData.formData) &&
-        formData.formData.length !== 0 &&
-        formData.formData.map((data) => (
-          <div key={data.password}>
-            <Cards data={data} />
-          </div>
-        ))}
+      <h2>Main Page</h2>
+      <section className="wrapper_cards">
+        {Array.isArray(formData.formData) &&
+          formData.formData.length !== 0 &&
+          formData.formData.map((data) => (
+            <div className="card" key={data.password}>
+              <Cards data={data} />
+            </div>
+          ))}
+      </section>
     </>
   );
 };

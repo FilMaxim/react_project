@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const Header: React.FC = () => {
   return (
-    <>
+    <div className="nav">
       <Link to={`/`}>
         <button>Main Page</button>
       </Link>
@@ -12,6 +12,6 @@ export const Header: React.FC = () => {
       <Link to={`/hook-form`}>
         <button>HookFormPage</button>
       </Link>
-    </>
+    </div>
   );
 };

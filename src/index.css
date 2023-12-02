@@ -60,6 +60,35 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* MainPage */
+.card {
+  width: 300px;
+  padding: 15px;
+  background-color: #535bf26b;
+  border-radius: 15px;
+}
+.card:last-child {
+  border: 2px solid red;
+}
+
+.wrapper_cards {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px
+}
+
+.image_user {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+}
+.information {
+  width: 100%;  
+}
+
+/* Form */
 span {
   display: block;
   color: red;
@@ -69,7 +98,16 @@ form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap:15px
+  justify-content: flex-start;
+  gap:15px;
+  background-color: #535bf26b;
+  padding: 15px 20px;
+  border-radius: 15px;
+}
+
+form div {
+  text-align: start;
+  font-size: 22px;
 }
 
 label {
@@ -86,17 +124,28 @@ li {
   font-size: 22px;
 }
 
-.image_user {
-  width: 300px;
-  border-radius: 20px;
+input, select {
+  height: 20px;
+  border-radius: 5px;
+  padding-left: 10px;
+  border: 1px solid rgb(24, 25, 25);
 }
-.information {
+
+#country {
   margin-top: 15px;
-  width: 400px;
-  padding: 15px;
-  border-radius: 15px;
-  background-color: #535bf26b;
+  text-align: end;
+  list-style-type: none;
+  overflow-y: scroll;
+  max-height: 200px;
 }
+
+#country li {
+  cursor: pointer;
+  margin-bottom: 4px;
+  font-size: 16px;
+}
+
+
 
 @media (prefers-color-scheme: light) {
   :root {
