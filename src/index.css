@@ -1,0 +1,158 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid rgb(255, 255, 255);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #888787;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* MainPage */
+.card {
+  width: 300px;
+  padding: 15px;
+  background-color: #535bf26b;
+  border-radius: 15px;
+}
+.card:last-child {
+  border: 2px solid red;
+}
+
+.wrapper_cards {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px
+}
+
+.image_user {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+}
+.information {
+  width: 100%;  
+}
+
+/* Form */
+span {
+  display: block;
+  color: red;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap:15px;
+  background-color: #535bf26b;
+  padding: 15px 20px;
+  border-radius: 15px;
+}
+
+form div {
+  text-align: start;
+  font-size: 22px;
+}
+
+label {
+  padding-right: 10px;
+}
+
+ul{
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style-type: none;
+  font-size: 22px;
+}
+
+input, select {
+  height: 20px;
+  border-radius: 5px;
+  padding-left: 10px;
+  border: 1px solid rgb(24, 25, 25);
+}
+
+#country {
+  margin-top: 15px;
+  text-align: end;
+  list-style-type: none;
+  overflow-y: scroll;
+  max-height: 200px;
+}
+
+#country li {
+  cursor: pointer;
+  margin-bottom: 4px;
+  font-size: 16px;
+}
+
+
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+}
